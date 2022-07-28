@@ -1,6 +1,7 @@
 #ifndef PRIMOS_H
 #define PRIMOS_H
 
+#include <iostream>
 #include <math.h>
 #include <random>
 #include <chrono>
@@ -49,6 +50,20 @@ bool verificaPrimo(long long possivelPrimo) // Implementação do teste do peque
     }
 
     return true;
+}
+
+long long gerarPseudoPrimo()
+{
+    bool verifica = false;
+
+    long long possivelPrimo;
+
+    do
+    {
+        possivelPrimo = gerarPossivelPrimo();
+    } while (!verificaPrimo(possivelPrimo));
+
+    return possivelPrimo;
 }
 
 #endif
