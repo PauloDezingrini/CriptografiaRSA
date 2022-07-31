@@ -5,6 +5,8 @@
 #include "potenciaModular.h"
 
 #include <math.h>
+#include <vector>
+#include <string>
 
 using namespace std;
 
@@ -114,9 +116,30 @@ vector<long long> RSA::criptografar(string entrada)
         while (blocoDeMensagem.length() < tamanhoDoBloco)
             blocoDeMensagem += "23";
 
-        long long sequenciaCriptografada = potenciaModular(stoll(blocoDeMensagem), this->chavePublica_e, this->chavePublica_n);
+        sequenciaCriptografada = potenciaModular(stoll(blocoDeMensagem), this->chavePublica_e, this->chavePublica_n);
         mensagemCriptografada.push_back(sequenciaCriptografada);
     }
 
     return mensagemCriptografada;
+}
+
+string RSA::descriptografar(vector<long long> mensagemCriptografada)
+{
+    string mensagemDescriptografada = "";
+    string aux;
+    long long sequenciaCriptografada;
+    long long sequenciaDescriptografada;
+
+    for (int i = 0; i < mensagemCriptografada.size(); i++)
+    {
+        sequenciaCriptografada = mensagemCriptografada[i];
+
+        sequenciaDescriptografada = potenciaModular(sequenciaCriptografada, this->chavePrivada, this->chavePublica_n);
+
+        aux = decodificar(to_string(sequenciaDescriptografada));
+
+        mensagemDescriptografada.append(aux);
+    }
+
+    return mensagemDescriptografada;
 }

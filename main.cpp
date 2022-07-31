@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "codificador.h"
+#include <vector>
 #include "RSA.h"
 
 using namespace std;
@@ -15,4 +15,19 @@ int main()
 
     cout << "Primos p : " << rsa.primoP << endl;
     cout << "Primos q : " << rsa.primoQ << endl;
+
+    string mensagem = "TESTANDO";
+    vector<long long> mensagemCriptografada;
+
+    mensagemCriptografada = rsa.criptografar(mensagem);
+
+    cout << "Mensagem Criptografada" << endl;
+    for (int i = 0; i < mensagemCriptografada.size(); i++)
+        cout << mensagemCriptografada[i];
+    cout << endl;
+
+    cout << "Mensagem Descriptografada" << endl;
+    mensagem = rsa.descriptografar(mensagemCriptografada);
+
+    cout << mensagem << endl;
 }

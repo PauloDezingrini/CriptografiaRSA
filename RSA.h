@@ -2,6 +2,9 @@
 #define RSA_H
 
 #include <vector>
+#include <string>
+
+using namespace std;
 
 class RSA
 {
@@ -23,6 +26,7 @@ public:
 
     void gerarChaves();
     vector<long long> criptografar(string entrada);
+    string descriptografar(vector<long long> mensagemCriptografada);
 };
 
 #endif
