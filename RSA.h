@@ -8,6 +8,8 @@ private:
     long long chavePublica_n;
     long long chavePublica_e;
 
+    int definirTamanhoDoBloco();
+
 public:
     long long primoP;
     long long primoQ;

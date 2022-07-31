@@ -2,6 +2,11 @@
 #include "primos.h"
 #include "euclides.h"
 
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
 RSA::RSA()
 {
     this->chavePrivada = 0;
@@ -22,6 +27,22 @@ long long RSA::getChavePublica_n()
 long long RSA::getChavePublica_e()
 {
     return this->chavePublica_e;
+}
+
+int RSA::definirTamanhoDoBloco()
+{
+    // Retorna 0 no caso da chave pública ser 0, ou seja, não foi gerada/Inicializada
+    if (this->getChavePublica_n() == 0)
+        return 0;
+    else
+    {
+        long long maiorCombinacao = 25;
+        int i;
+        for (i = 2; maiorCombinacao < this->chavePublica_n; i += 2)
+            maiorCombinacao += 25 * pow(10, i);
+
+        return i;
+    }
 }
 
 void RSA::gerarChaves()
