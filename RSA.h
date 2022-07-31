@@ -1,6 +1,8 @@
 #ifndef RSA_H
 #define RSA_H
 
+#include <vector>
+
 class RSA
 {
 private:
@@ -20,6 +22,7 @@ public:
     long long getChavePublica_e();
 
     void gerarChaves();
+    vector<long long> criptografar(string entrada);
 };
 
 #endif

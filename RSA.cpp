@@ -1,8 +1,9 @@
 #include "RSA.h"
 #include "primos.h"
 #include "euclides.h"
+#include "codificador.h"
+#include "potenciaModular.h"
 
-#include <iostream>
 #include <math.h>
 
 using namespace std;
@@ -73,4 +74,49 @@ void RSA::gerarChaves()
         this->chavePrivada = s;
     else
         this->chavePrivada = s + fi;
+}
+
+vector<long long> RSA::criptografar(string entrada)
+{
+    int tamanhoDoBloco = definirTamanhoDoBloco();
+
+    string mensagemCodificada = codificar(entrada);
+
+    /*
+        Vector será utilizado para armazenar a mensagem criptografada,
+        onde cada posição representará um bloco da mensagem
+    */
+    vector<long long> mensagemCriptografada;
+
+    // Variáveis auxiliares
+    long long sequenciaCriptografada;
+    int i = 0;
+
+    while (i < mensagemCodificada.length())
+    {
+        string blocoDeMensagem = "";
+
+        int tamanhoDaMensagem = 0;
+
+        // Monta os blocos
+        while (tamanhoDaMensagem < tamanhoDoBloco && i < mensagemCodificada.length())
+        {
+            blocoDeMensagem += mensagemCodificada[i];
+            blocoDeMensagem += mensagemCodificada[i + 1];
+            i += 2;
+            tamanhoDaMensagem += 2;
+        }
+
+        /*
+            Completa o bloco com 23 (Código do X) caso não tenha sido possível
+            colocar a mensagem em um número exato de blocos
+        */
+        while (blocoDeMensagem.length() < tamanhoDoBloco)
+            blocoDeMensagem += "23";
+
+        long long sequenciaCriptografada = potenciaModular(stoll(blocoDeMensagem), this->chavePublica_e, this->chavePublica_n);
+        mensagemCriptografada.push_back(sequenciaCriptografada);
+    }
+
+    return mensagemCriptografada;
 }
