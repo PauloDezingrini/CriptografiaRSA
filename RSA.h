@@ -25,8 +25,8 @@ public:
     long long getChavePublica_e();
 
     void gerarChaves();
-    vector<long long> criptografar(string entrada);
-    string descriptografar(vector<long long> mensagemCriptografada);
+    vector<unsigned long long> criptografar(string entrada);
+    string descriptografar(vector<unsigned long long> mensagemCriptografada);
 };
 
 #endif

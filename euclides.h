@@ -1,7 +1,7 @@
 #ifndef EUCLIDES_H
 #define EUCLIDES_H
 
-long long euclides(long long a, long long b)
+unsigned long long euclides(unsigned long long a, unsigned long long b)
 {
     if (b == 0)
         return a;
@@ -9,20 +9,20 @@ long long euclides(long long a, long long b)
         return euclides(b, a % b);
 }
 
-void euclidesEstendido(long long a, long long b, long long &s, long long &t)
+void euclidesEstendido(unsigned long long a, unsigned long long b, unsigned long long &s, unsigned long long &t)
 {
-    long long r = a;
-    long long r1 = b;
-    long long s1 = 0;
-    long long t1 = 1;
+    unsigned long long r = a;
+    unsigned long long r1 = b;
+    unsigned long long s1 = 0;
+    unsigned long long t1 = 1;
     s = 1;
     t = 0;
 
-    long long rs, ss, ts, q;
+    unsigned long long rs, ss, ts, q;
 
     while (r1 != 0)
     {
-        q = (long long)r / r1;
+        q = (unsigned long long)r / r1;
         rs = r;
         ss = s;
         ts = t;

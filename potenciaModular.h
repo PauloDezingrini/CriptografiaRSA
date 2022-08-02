@@ -5,14 +5,14 @@
 
 using namespace std;
 
-long long potenciaModular(long long a, long long expoente, long long mod)
+unsigned long long potenciaModular(unsigned long long a, unsigned long long expoente, unsigned long long mod)
 {
     // Caso base
     if (expoente == 1)
         return a;
 
     // Divisão em problemas menores
-    long long x = potenciaModular(a, expoente / 2, mod) % mod;
+    unsigned long long x = potenciaModular(a, expoente / 2, mod) % mod;
 
     if (expoente % 2 == 0)
     {

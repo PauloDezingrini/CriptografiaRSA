@@ -39,7 +39,7 @@ int RSA::definirTamanhoDoBloco()
         return 0;
     else
     {
-        long long maiorCombinacao = 25;
+        unsigned long long maiorCombinacao = 25;
         int i;
         for (i = 2; maiorCombinacao < this->chavePublica_n; i += 2)
             maiorCombinacao += 25 * pow(10, i);
@@ -58,9 +58,9 @@ void RSA::gerarChaves()
 
     this->chavePublica_n = p * q;
 
-    long long fi = (p - 1) * (q - 1);
+    unsigned long long fi = (p - 1) * (q - 1);
 
-    long long e;
+    unsigned long long e;
     do
     {
         e = gerarPossivelPrimo(); // Talvez garantir que ele seja pseudoPrimo
@@ -68,7 +68,7 @@ void RSA::gerarChaves()
 
     this->chavePublica_e = e;
 
-    long long s, t;
+    unsigned long long s, t;
 
     euclidesEstendido(e, fi, s, t);
 
@@ -78,7 +78,7 @@ void RSA::gerarChaves()
         this->chavePrivada = s + fi;
 }
 
-vector<long long> RSA::criptografar(string entrada)
+vector<unsigned long long> RSA::criptografar(string entrada)
 {
     int tamanhoDoBloco = definirTamanhoDoBloco();
 
@@ -88,10 +88,10 @@ vector<long long> RSA::criptografar(string entrada)
         Vector será utilizado para armazenar a mensagem criptografada,
         onde cada posição representará um bloco da mensagem
     */
-    vector<long long> mensagemCriptografada;
+    vector<unsigned long long> mensagemCriptografada;
 
     // Variáveis auxiliares
-    long long sequenciaCriptografada;
+    unsigned long long sequenciaCriptografada;
     int i = 0;
 
     while (i < mensagemCodificada.length())
@@ -116,6 +116,8 @@ vector<long long> RSA::criptografar(string entrada)
         while (blocoDeMensagem.length() < tamanhoDoBloco)
             blocoDeMensagem += "23";
 
+        cout << blocoDeMensagem << endl;
+
         sequenciaCriptografada = potenciaModular(stoll(blocoDeMensagem), this->chavePublica_e, this->chavePublica_n);
         mensagemCriptografada.push_back(sequenciaCriptografada);
     }
@@ -123,23 +125,31 @@ vector<long long> RSA::criptografar(string entrada)
     return mensagemCriptografada;
 }
 
-string RSA::descriptografar(vector<long long> mensagemCriptografada)
+string RSA::descriptografar(vector<unsigned long long> mensagemCriptografada)
 {
     string mensagemDescriptografada = "";
     string aux;
-    long long sequenciaCriptografada;
-    long long sequenciaDescriptografada;
+    unsigned long long sequenciaCriptografada;
+    unsigned long long sequenciaDescriptografada;
+
+    int tamanhoDoBloco = definirTamanhoDoBloco();
+    int zerosPraCompletar;
 
     for (int i = 0; i < mensagemCriptografada.size(); i++)
     {
+        zerosPraCompletar = 0;
+
         sequenciaCriptografada = mensagemCriptografada[i];
 
         sequenciaDescriptografada = potenciaModular(sequenciaCriptografada, this->chavePrivada, this->chavePublica_n);
 
-        aux = decodificar(to_string(sequenciaDescriptografada));
+        aux = to_string(sequenciaDescriptografada);
 
-        mensagemDescriptografada.append(aux);
+        if (tamanhoDoBloco > aux.length())
+            zerosPraCompletar = tamanhoDoBloco - aux.length();
+
+        mensagemDescriptografada.append((aux.insert(0, zerosPraCompletar, '0')));
     }
 
-    return mensagemDescriptografada;
+    return decodificar(mensagemDescriptografada);
 }
