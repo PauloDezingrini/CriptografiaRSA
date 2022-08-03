@@ -50,8 +50,8 @@ int RSA::definirTamanhoDoBloco()
 
 void RSA::gerarChaves()
 {
-    unsigned long long p = 541;
-    unsigned long long q = 547;
+    unsigned long long p = 211;
+    unsigned long long q = 317;
 
     //unsigned long long p = gerarPseudoPrimo();
     //unsigned long long q = gerarPseudoPrimo();
@@ -83,7 +83,6 @@ void RSA::gerarChaves()
     else
         this->chavePrivada = s + fi;
 
-    cout << "chave " << chavePrivada << endl;
 }
 
 vector<unsigned long long> RSA::criptografar(string entrada)
@@ -101,7 +100,7 @@ vector<unsigned long long> RSA::criptografar(string entrada)
     // Variáveis auxiliares
     unsigned long long sequenciaCriptografada;
     int i = 0;
-
+    
     while (i < mensagemCodificada.length())
     {
         string blocoDeMensagem = "";
@@ -109,7 +108,7 @@ vector<unsigned long long> RSA::criptografar(string entrada)
         int tamanhoDaMensagem = 0;
 
         // Monta os blocos
-        while (tamanhoDaMensagem < tamanhoDoBloco && i < mensagemCodificada.length())
+        while (tamanhoDaMensagem < tamanhoDoBloco)
         {
             blocoDeMensagem += mensagemCodificada[i];
             blocoDeMensagem += mensagemCodificada[i + 1];
@@ -144,7 +143,10 @@ string RSA::descriptografar(vector<unsigned long long> mensagemCriptografada)
     unsigned long long sequenciaDescriptografada;
 
     int tamanhoDoBloco = definirTamanhoDoBloco();
+    cout << "tamanho bloco " << tamanhoDoBloco<<endl;
     int zerosPraCompletar;
+
+    cout << "tamanho mensagem criptografada " <<  mensagemCriptografada.size() << endl;
 
     for (int i = 0; i < mensagemCriptografada.size(); i++)
     {
@@ -160,7 +162,7 @@ string RSA::descriptografar(vector<unsigned long long> mensagemCriptografada)
         if (tamanhoDoBloco > aux.length())
             zerosPraCompletar = tamanhoDoBloco - aux.length();
         
-        cout << "aux " << aux << endl;
+        
 
         mensagemDescriptografada += aux;
 
@@ -172,6 +174,7 @@ string RSA::descriptografar(vector<unsigned long long> mensagemCriptografada)
         15002011
         */
         //mensagemDescriptografada.append((aux.insert(0, zerosPraCompletar, '0')));
+        cout << "mensagem descrit " << mensagemDescriptografada << aux << endl;
     }
 
     return decodificar(mensagemDescriptografada);
