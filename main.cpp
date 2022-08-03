@@ -11,15 +11,14 @@ int main()
     rsa.gerarChaves();
 
     cout << "( " << rsa.getChavePublica_n() << " , " << rsa.getChavePublica_e() << " )" << endl;
-    
-    
+
     cout << "Chave privada :" << rsa.getChavePrivada() << endl;
 
     cout << "Primos p : " << rsa.primoP << endl;
     cout << "Primos q : " << rsa.primoQ << endl;
 
-    string mensagem = "PAULOOOOOOOOO";
-    vector<unsigned long long> mensagemCriptografada;
+    string mensagem = "ABCDEFG";
+    vector<unsigned int> mensagemCriptografada;
 
     mensagemCriptografada = rsa.criptografar(mensagem);
 
@@ -33,3 +32,14 @@ int main()
 
     cout << mensagem << endl;
 }
+
+/*
+    n - 7 digitos
+    bloco - 6
+
+    mod n - 7
+
+
+
+
+*/

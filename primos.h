@@ -7,11 +7,8 @@
 #include <chrono>
 #include "potenciaModular.h"
 
-long long gerarPossivelPrimo()
+int gerarPossivelPrimo()
 {
-    // Define um valor mínimo para não correr o risco de gerar valores muito pequenos.
-    int minBits = 18;
-    long long m = pow(2, minBits);
 
     // Pega a seed a partir do relógid do sistema
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -19,41 +16,38 @@ long long gerarPossivelPrimo()
     // Seta a seed para o gerador de números aleatórios de 24 bits
     std::ranlux24 generator(seed);
 
-    return generator() + m;
+    unsigned int possivelPrimo = generator();
+
+    if (possivelPrimo < 0)
+        possivelPrimo *= -1;
+
+    return possivelPrimo;
 }
-long long gerarPossivelPrimoIntervalo(long long vMax)
+
+unsigned int gerarPossivelPrimoIntervalo(unsigned int vMax)
 {
     // Define um valor mínimo para não correr o risco de gerar valores muito pequenos.
     int minBits = 18;
-    long long m = pow(2, minBits);
+    unsigned int m = pow(2, minBits);
 
     // Pega a seed a partir do relógid do sistema
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     // Seta a seed para o gerador de números aleatórios de 24 bits
     std::ranlux24 generator(seed);
-    
-    long long num ;
+
+    unsigned int num;
     do
     {
         num = generator();
     } while (num > vMax || num == 1);
-    
-    
-    
-    
-    
-    
-    
-    
-    //TROCAR AQUI
-    //return 7 ;
-    
-    
-    
-    cout << "primo " <<num<< endl;
-    
-    return num ;
+
+    // TROCAR AQUI
+    // return 7 ;
+
+    cout << "primo " << num << endl;
+
+    return num;
 }
 
 /*
@@ -61,7 +55,7 @@ long long gerarPossivelPrimoIntervalo(long long vMax)
     a -> Números primos
     a ^ p - 1 != 1 (mod p) -> Tem certeza que não é primo
 */
-bool verificaPrimo(long long possivelPrimo) // Implementação do teste do pequeno teorema de Fermat
+bool verificaPrimo(int possivelPrimo) // Implementação do teste do pequeno teorema de Fermat
 {
     int primos[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
                     59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157,
@@ -73,7 +67,7 @@ bool verificaPrimo(long long possivelPrimo) // Implementação do teste do peque
 
     int size = sizeof(primos) / sizeof(int);
 
-    long long a;
+    unsigned int a;
 
     for (int i = 0; i < size; i++)
     {
@@ -86,11 +80,11 @@ bool verificaPrimo(long long possivelPrimo) // Implementação do teste do peque
     return true;
 }
 
-long long gerarPseudoPrimo()
+int gerarPseudoPrimo()
 {
     bool verifica = false;
 
-    long long possivelPrimo;
+    int possivelPrimo;
 
     do
     {
