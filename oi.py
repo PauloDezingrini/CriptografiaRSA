@@ -32,8 +32,8 @@ def exteuclid(a, b):
         t1 = t1 % a 
           
     return (r1, t1) 
-p = 11
-q = 13
+p = 541
+q = 547
 n = p * q 
 Pn = (p-1)*(q-1) 
 key = [] 
@@ -45,7 +45,7 @@ for i in range(2, Pn):
     if gcd == 1: 
         key.append(i) 
   
-e = int(7) 
+e = int(169553) 
 r, d = exteuclid(Pn, e) 
 if r == 1: 
     d = int(d) 

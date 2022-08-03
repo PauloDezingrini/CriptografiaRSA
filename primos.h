@@ -51,7 +51,7 @@ long long gerarPossivelPrimoIntervalo(long long vMax)
     
     
     
-    
+    cout << "primo " <<num<< endl;
     
     return num ;
 }

@@ -18,7 +18,7 @@ int main()
     cout << "Primos p : " << rsa.primoP << endl;
     cout << "Primos q : " << rsa.primoQ << endl;
 
-    string mensagem = "PAU";
+    string mensagem = "PAULOOOOOOOOO";
     vector<unsigned long long> mensagemCriptografada;
 
     mensagemCriptografada = rsa.criptografar(mensagem);

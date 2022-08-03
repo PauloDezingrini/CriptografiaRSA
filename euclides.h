@@ -9,7 +9,8 @@ unsigned long long euclides(unsigned long long a, unsigned long long b)
         return euclides(b, a % b);
 }
 
-void euclidesEstendido(unsigned long long a, unsigned long long b, unsigned long long &s, unsigned long long &t)
+unsigned long long euclidesEstendidoxxx(unsigned long long a, unsigned long long b,
+ unsigned long long &s, unsigned long long &t)
 {
     unsigned long long r = a;
     unsigned long long r1 = b;
@@ -29,10 +30,40 @@ void euclidesEstendido(unsigned long long a, unsigned long long b, unsigned long
         r = r1;
         s = s1;
         t = t1;
+        if(r%r1 == 0)return r1;
         r1 = rs - q * r1;
         s1 = ss - q * s;
         t1 = ts - q * t1;
     }
+    //cout << "bbbbb " << b << endl;
+    return 0;
+}
+unsigned long long euclidesEstendido(unsigned long long n1, unsigned long long n2, unsigned long long& s, unsigned long long& t) {
+    s = 1;
+    t = 0;
+
+    unsigned long long newS = 0, newT = 1;
+    unsigned long long aux, q;
+
+    do {
+        q = (unsigned long long)n1 / n2;
+
+        aux = s - (newS * q);
+        s = newS;
+        newS = aux;
+
+        aux = t - (newT * q);
+        t = newT;
+        newT = aux;
+
+        aux = n1 % n2;
+        
+        if (aux == 0) return n2;
+
+        n1 = n2;
+        n2 = aux;
+
+    } while (true);
 }
 
 #endif
