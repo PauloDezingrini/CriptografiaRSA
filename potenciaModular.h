@@ -5,14 +5,14 @@
 
 using namespace std;
 
-unsigned int potenciaModular(unsigned int a, unsigned int expoente, unsigned int mod)
+long long potenciaModular(unsigned int a, unsigned int expoente, unsigned int mod)
 {
     // Caso base
     if (expoente == 1)
         return a;
 
     // Divisão em problemas menores
-    unsigned int x = potenciaModular(a, expoente / 2, mod) % mod;
+    long long x = potenciaModular(a, expoente / 2, mod) % mod;
 
     if (expoente % 2 == 0)
     {
@@ -24,15 +24,16 @@ unsigned int potenciaModular(unsigned int a, unsigned int expoente, unsigned int
     }
 }
 
-// unsigned int potenciaModular(unsigned int a,
-//                              unsigned int expoente, unsigned int mod)
+// long long potenciaModular(unsigned int a,
+//                           unsigned int expoente, unsigned int mod)
 // {
 //     if (a == 0)
 //         return 0;
 //     if (expoente == 0)
 //         return 1;
 
-//     unsigned int x;
+//     long long x;
+//     cout << x << endl;
 
 //     if (expoente % 2 == 0)
 //     {
@@ -45,7 +46,8 @@ unsigned int potenciaModular(unsigned int a, unsigned int expoente, unsigned int
 //         x = (x * potenciaModular(a, expoente - 1, mod) % mod) % mod;
 //     }
 
-//     return ((x + mod) % mod);
+//     long long retorno = (x + mod) % mod;
+//     return retorno;
 // }
 
 #endif

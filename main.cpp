@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
     RSA rsa;
     rsa.gerarChaves();
@@ -17,7 +17,7 @@ int main()
     cout << "Primos p : " << rsa.primoP << endl;
     cout << "Primos q : " << rsa.primoQ << endl;
 
-    string mensagem = "ABCDEFG";
+    string mensagem = argv[1];
     vector<unsigned int> mensagemCriptografada;
 
     mensagemCriptografada = rsa.criptografar(mensagem);

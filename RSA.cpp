@@ -44,7 +44,7 @@ int RSA::definirTamanhoDoBloco()
         for (i = 2; maiorCombinacao < this->chavePublica_n; i += 2)
             maiorCombinacao += 25 * pow(10, i);
 
-        return i;
+        return i - 2;
     }
 }
 
@@ -61,7 +61,7 @@ void RSA::gerarChaves()
 
     this->chavePublica_n = p * q;
 
-    unsigned int fi = (p - 1) * (q - 1);
+    long long fi = (p - 1) * (q - 1);
     // cout << "fi " << fi << endl;
     unsigned int e;
     do
@@ -73,15 +73,16 @@ void RSA::gerarChaves()
     this->chavePublica_e = e;
     this->chavePrivada = s;
     if (chavePrivada < 0)
-        this->chavePrivada = s;
-    else
         this->chavePrivada = s + fi;
+    else
+        this->chavePrivada = s;
 }
 
 vector<unsigned int> RSA::criptografar(string entrada)
 {
-    // int tamanhoDoBloco = definirTamanhoDoBloco();
-    int tamanhoDoBloco = 1;
+    int tamanhoDoBloco = definirTamanhoDoBloco();
+
+    cout << "SIZE: " << tamanhoDoBloco << endl;
 
     string mensagemCodificada = codificar(entrada);
 
@@ -106,19 +107,17 @@ vector<unsigned int> RSA::criptografar(string entrada)
             blocoDeMensagem += mensagemCodificada[i];
             blocoDeMensagem += mensagemCodificada[i + 1];
             i += 2;
-            tamanhoDaMensagem += 1;
+            tamanhoDaMensagem += 2;
         }
 
-        while (blocoDeMensagem.length() != tamanhoDaMensagem * 2)
-        {
-            blocoDeMensagem += "25";
-        }
         /*
             Completa o bloco com 23 (Código do X) caso não tenha sido possível
             colocar a mensagem em um número exato de blocos
         */
-        // while (blocoDeMensagem.length() < tamanhoDoBloco)
-        //     blocoDeMensagem += "23";
+        while (blocoDeMensagem.length() < tamanhoDoBloco)
+        {
+            blocoDeMensagem += "23";
+        }
 
         cout << "bloco mensagem " << blocoDeMensagem << endl;
 
@@ -137,7 +136,7 @@ string RSA::descriptografar(vector<unsigned int> mensagemCriptografada)
     string mensagemDescriptografada = "";
     string aux;
     unsigned int sequenciaCriptografada;
-    unsigned int sequenciaDescriptografada;
+    long long sequenciaDescriptografada;
 
     int tamanhoDoBloco = definirTamanhoDoBloco();
     cout << "tamanho bloco " << tamanhoDoBloco << endl;
@@ -157,12 +156,14 @@ string RSA::descriptografar(vector<unsigned int> mensagemCriptografada)
         aux = to_string(sequenciaDescriptografada);
         cout << "seq " << sequenciaDescriptografada << endl;
 
-        if (tamanhoDoBloco > aux.length())
-            zerosPraCompletar = tamanhoDoBloco - aux.length() - 2;
+        /*
+            Bloco: 6
+            Tem que completar com 0,
+        */
+        while (aux.length() < tamanhoDoBloco)
+            aux.insert(0, 1, '0');
 
-        cout << "ZEROS: " << zerosPraCompletar << endl;
-
-        aux.insert(0, zerosPraCompletar, '0');
+        cout << "Aux: " << zerosPraCompletar << endl;
 
         mensagemDescriptografada.append(aux);
         cout << "mensagem descrit " << mensagemDescriptografada << endl;
