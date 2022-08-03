@@ -5,23 +5,24 @@
 
 using namespace std;
 
-unsigned long long potenciaModular(unsigned long long a, unsigned long long expoente, unsigned long long mod)
+unsigned long long potenciaModular(unsigned long long a, 
+unsigned long long expoente, unsigned long long mod)
 {
-    // Caso base
-    if (expoente == 1)
-        return a;
+    if (a == 0) return 0;
+    if (expoente == 0) return 1;
 
-    // Divisão em problemas menores
-    unsigned long long x = potenciaModular(a, expoente / 2, mod) % mod;
+    long long step;
 
-    if (expoente % 2 == 0)
-    {
-        return (x * x) % mod;
+    if (expoente % 2 == 0) {
+        step = potenciaModular(a, expoente / 2, mod);
+        step = (step * step) % mod;
     }
-    else
-    {
-        return (x * x * a) % mod;
+    else {
+        step = a % mod;
+        step = (step * potenciaModular(a, expoente - 1, mod) % mod) % mod;
     }
+
+    return ((step + mod) % mod);
 }
 
 #endif

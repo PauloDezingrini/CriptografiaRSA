@@ -21,6 +21,40 @@ long long gerarPossivelPrimo()
 
     return generator() + m;
 }
+long long gerarPossivelPrimoIntervalo(long long vMax)
+{
+    // Define um valor mínimo para não correr o risco de gerar valores muito pequenos.
+    int minBits = 18;
+    long long m = pow(2, minBits);
+
+    // Pega a seed a partir do relógid do sistema
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+
+    // Seta a seed para o gerador de números aleatórios de 24 bits
+    std::ranlux24 generator(seed);
+    
+    long long num ;
+    do
+    {
+        num = generator();
+    } while (num > vMax || num == 1);
+    
+    
+    
+    
+    
+    
+    
+    
+    //TROCAR AQUI
+    //return 7 ;
+    
+    
+    
+    
+    
+    return num ;
+}
 
 /*
     p - candidato a primo

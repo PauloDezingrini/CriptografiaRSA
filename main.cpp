@@ -11,12 +11,14 @@ int main()
     rsa.gerarChaves();
 
     cout << "( " << rsa.getChavePublica_n() << " , " << rsa.getChavePublica_e() << " )" << endl;
+    
+    
     cout << "Chave privada :" << rsa.getChavePrivada() << endl;
 
     cout << "Primos p : " << rsa.primoP << endl;
     cout << "Primos q : " << rsa.primoQ << endl;
 
-    string mensagem = "T";
+    string mensagem = "PPPPP";
     vector<unsigned long long> mensagemCriptografada;
 
     mensagemCriptografada = rsa.criptografar(mensagem);

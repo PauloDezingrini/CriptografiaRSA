@@ -17,17 +17,17 @@ RSA::RSA()
     this->chavePublica_e = 0;
 }
 
-long long RSA::getChavePrivada()
+unsigned long long RSA::getChavePrivada()
 {
     return this->chavePrivada;
 }
 
-long long RSA::getChavePublica_n()
+unsigned long long RSA::getChavePublica_n()
 {
     return this->chavePublica_n;
 }
 
-long long RSA::getChavePublica_e()
+unsigned long long RSA::getChavePublica_e()
 {
     return this->chavePublica_e;
 }
@@ -50,8 +50,11 @@ int RSA::definirTamanhoDoBloco()
 
 void RSA::gerarChaves()
 {
-    long long p = gerarPseudoPrimo();
-    long long q = gerarPseudoPrimo();
+    unsigned long long p = 541;
+    unsigned long long q = 547;
+
+    //unsigned long long p = gerarPseudoPrimo();
+    //unsigned long long q = gerarPseudoPrimo();
 
     this->primoP = p;
     this->primoQ = q;
@@ -59,23 +62,28 @@ void RSA::gerarChaves()
     this->chavePublica_n = p * q;
 
     unsigned long long fi = (p - 1) * (q - 1);
-
+    //cout << "fi " << fi << endl;
     unsigned long long e;
     do
     {
-        e = gerarPossivelPrimo(); // Talvez garantir que ele seja pseudoPrimo
+        e = gerarPossivelPrimoIntervalo(fi); // Talvez garantir que ele seja pseudoPrimo
     } while (euclides(e, fi) != 1);
+    //cout << "e " << e << endl;
 
     this->chavePublica_e = e;
 
-    unsigned long long s, t;
+    unsigned long long s, t,x;
 
     euclidesEstendido(e, fi, s, t);
-
-    if (s >= 0)
+    
+    
+    this->chavePrivada = s;
+    if (chavePrivada < 0)
         this->chavePrivada = s;
     else
         this->chavePrivada = s + fi;
+
+    cout << "chave " << chavePrivada << endl;
 }
 
 vector<unsigned long long> RSA::criptografar(string entrada)
@@ -113,12 +121,15 @@ vector<unsigned long long> RSA::criptografar(string entrada)
             Completa o bloco com 23 (Código do X) caso não tenha sido possível
             colocar a mensagem em um número exato de blocos
         */
-        while (blocoDeMensagem.length() < tamanhoDoBloco)
-            blocoDeMensagem += "23";
+        // while (blocoDeMensagem.length() < tamanhoDoBloco)
+        //     blocoDeMensagem += "23";
 
-        cout << blocoDeMensagem << endl;
+        cout <<"bloco mensagem "<< blocoDeMensagem << endl;
 
-        sequenciaCriptografada = potenciaModular(stoll(blocoDeMensagem), this->chavePublica_e, this->chavePublica_n);
+        sequenciaCriptografada = 
+            potenciaModular(stoll(blocoDeMensagem), this->chavePublica_e,
+             this->chavePublica_n);
+        
         mensagemCriptografada.push_back(sequenciaCriptografada);
     }
 
@@ -141,14 +152,26 @@ string RSA::descriptografar(vector<unsigned long long> mensagemCriptografada)
 
         sequenciaCriptografada = mensagemCriptografada[i];
 
-        sequenciaDescriptografada = potenciaModular(sequenciaCriptografada, this->chavePrivada, this->chavePublica_n);
+        sequenciaDescriptografada = potenciaModular(sequenciaCriptografada, 
+        this->chavePrivada, this->chavePublica_n);
 
         aux = to_string(sequenciaDescriptografada);
-
+        cout << "seq "<< sequenciaDescriptografada << endl;
         if (tamanhoDoBloco > aux.length())
             zerosPraCompletar = tamanhoDoBloco - aux.length();
+        
+        cout << "aux " << aux << endl;
 
-        mensagemDescriptografada.append((aux.insert(0, zerosPraCompletar, '0')));
+        mensagemDescriptografada += aux;
+
+        /*Mensagem Descriptografada
+        150020
+        PAU
+        Mensagem Descriptografada
+        205661
+        15002011
+        */
+        //mensagemDescriptografada.append((aux.insert(0, zerosPraCompletar, '0')));
     }
 
     return decodificar(mensagemDescriptografada);
