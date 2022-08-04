@@ -7,16 +7,16 @@
 #include <chrono>
 #include "potenciaModular.h"
 
-long long gerarPossivelPrimo()
+unsigned long long gerarPossivelPrimo()
 {
 
     // Pega a seed a partir do relógid do sistema
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    unsigned long long seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     // Seta a seed para o gerador de números aleatórios de 24 bits
     std::ranlux24 generator(seed);
 
-    long long possivelPrimo = generator();
+    unsigned long long possivelPrimo = generator();
 
     return possivelPrimo;
 }
@@ -37,12 +37,12 @@ unsigned long long gerarPossivelPrimoIntervalo(unsigned long long vMax)
     do
     {
         num = generator();
-    } while (num > vMax || num == 1);
+    } while (num > vMax);
 
     // TROCAR AQUI
     // return 7 ;
 
-    cout << "primo " << num << endl;
+    //cout << "primo " << num << endl;
 
     return num;
 }
@@ -85,7 +85,7 @@ unsigned long long gerarPseudoPrimo()
 
     do
     {
-        possivelPrimo = gerarPossivelPrimo();
+        possivelPrimo = gerarPossivelPrimoIntervalo(1000);
     } while (!verificaPrimo(possivelPrimo));
 
     return possivelPrimo;
