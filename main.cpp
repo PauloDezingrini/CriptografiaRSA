@@ -27,19 +27,24 @@ int main(int argc, char *argv[])
         cout << mensagemCriptografada[i];
     cout << endl;
 
+
     cout << "Mensagem Descriptografada" << endl;
     mensagem = rsa.descriptografar(mensagemCriptografada);
 
     cout << mensagem << endl;
+
+
+    vector< long long> mensagemAssinada;
+    mensagemAssinada = rsa.gerarAssinatura(mensagem);
+
+    cout << "Mensagem Assinada" << endl;
+    for (int i = 0; i < mensagemAssinada.size(); i++)
+        cout << mensagemAssinada[i];
+    cout << endl;
+
+
+    cout << "Mensagem Assinada Descriptografada" << endl;
+    mensagem = rsa.descriptografarAssinatura(mensagemAssinada);
+
+    cout << mensagem << endl;
 }
-
-/*
-    n - 7 digitos
-    bloco - 6
-
-    mod n - 7
-
-
-
-
-*/

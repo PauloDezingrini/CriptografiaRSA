@@ -85,7 +85,7 @@ unsigned long long gerarPseudoPrimo()
 
     do
     {
-        possivelPrimo = gerarPossivelPrimoIntervalo(1000);
+        possivelPrimo = gerarPossivelPrimoIntervalo(100000);
     } while (!verificaPrimo(possivelPrimo));
 
     return possivelPrimo;
