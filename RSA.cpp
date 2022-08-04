@@ -50,11 +50,11 @@ int RSA::definirTamanhoDoBloco()
 
 void RSA::gerarChaves()
 {
-    unsigned long long p = 541;
-    unsigned long long q = 547;
+    // unsigned long long p = 541;
+    // unsigned long long q = 547;
 
-    // unsigned long long p = gerarPseudoPrimo();
-    // unsigned long long q = gerarPseudoPrimo();
+    unsigned long long p = gerarPseudoPrimo();
+    unsigned long long q = gerarPseudoPrimo();
     unsigned long long s, t, x;
     this->primoP = p;
     this->primoQ = q;
@@ -67,8 +67,7 @@ void RSA::gerarChaves()
     do
     {
         e = gerarPseudoPrimo(); // Talvez garantir que ele seja pseudoPrimo
-    } while (euclidesEstendido(e, fi, s, t) != 1);
-    // cout << "e " << e << endl;
+    } while (e > fi || euclidesEstendido(e, fi, s, t) != 1);
 
     this->chavePublica_e = e;
     this->chavePrivada = s;
@@ -139,14 +138,12 @@ string RSA::descriptografar(vector<unsigned long long> mensagemCriptografada)
     unsigned long long sequenciaDescriptografada;
 
     int tamanhoDoBloco = definirTamanhoDoBloco();
-    cout << "tamanho bloco " << tamanhoDoBloco << endl;
-    int zerosPraCompletar;
+    // cout << "tamanho bloco " << tamanhoDoBloco << endl;
 
-    cout << "tamanho mensagem criptografada " << mensagemCriptografada.size() << endl;
+    // cout << "tamanho mensagem criptografada " << mensagemCriptografada.size() << endl;
 
     for (int i = 0; i < mensagemCriptografada.size(); i++)
     {
-        zerosPraCompletar = 0;
 
         sequenciaCriptografada = mensagemCriptografada[i];
 
@@ -154,7 +151,7 @@ string RSA::descriptografar(vector<unsigned long long> mensagemCriptografada)
                                                     this->chavePrivada, this->chavePublica_n);
 
         aux = to_string(sequenciaDescriptografada);
-        cout << "seq " << sequenciaDescriptografada << endl;
+        // cout << "seq " << sequenciaDescriptografada << endl;
 
         /*
             Bloco: 6
@@ -163,10 +160,10 @@ string RSA::descriptografar(vector<unsigned long long> mensagemCriptografada)
         while (aux.length() < tamanhoDoBloco)
             aux.insert(0, 1, '0');
 
-        cout << "Aux: " << zerosPraCompletar << endl;
+        // cout << "Aux: " << zerosPraCompletar << endl;
 
         mensagemDescriptografada.append(aux);
-        cout << "mensagem descrit " << mensagemDescriptografada << endl;
+        // cout << "mensagem descrit " << mensagemDescriptografada << endl;
     }
 
     return decodificar(mensagemDescriptografada);

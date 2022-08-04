@@ -9,8 +9,8 @@ unsigned long long euclides(unsigned long long a, unsigned long long b)
         return euclides(b, a % b);
 }
 
-unsigned long long euclidesEstendidoxxx(unsigned long long a, unsigned long long b,
-                                        unsigned long long &s, unsigned long long &t)
+unsigned long long euclidesEstendido(unsigned long long a, unsigned long long b,
+                                     unsigned long long &s, unsigned long long &t)
 {
     unsigned long long r = a;
     unsigned long long r1 = b;
@@ -39,7 +39,7 @@ unsigned long long euclidesEstendidoxxx(unsigned long long a, unsigned long long
     // cout << "bbbbb " << b << endl;
     return r;
 }
-unsigned long long euclidesEstendido(unsigned long long n1, unsigned long long n2, unsigned long long &s, unsigned long long &t)
+unsigned long long euclidesEstendidoXXXs(unsigned long long n1, unsigned long long n2, unsigned long long &s, unsigned long long &t)
 {
     s = 1;
     t = 0;

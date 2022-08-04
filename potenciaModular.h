@@ -20,7 +20,7 @@ unsigned long long potenciaModular(unsigned long long a, unsigned long long expo
     }
     else
     {
-        return (x * x * a) % mod;
+        return (((x * x) % mod) * a) % mod;
     }
 }
 

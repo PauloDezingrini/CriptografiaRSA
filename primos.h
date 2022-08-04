@@ -18,9 +18,6 @@ long long gerarPossivelPrimo()
 
     long long possivelPrimo = generator();
 
-    if (possivelPrimo < 0)
-        possivelPrimo *= -1;
-
     return possivelPrimo;
 }
 
@@ -84,7 +81,7 @@ unsigned long long gerarPseudoPrimo()
 {
     bool verifica = false;
 
-    int possivelPrimo;
+    long long possivelPrimo;
 
     do
     {
