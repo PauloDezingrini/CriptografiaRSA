@@ -5,7 +5,7 @@
 
 using namespace std;
 
-long long potenciaModular(unsigned int a, unsigned int expoente, unsigned int mod)
+long long potenciaModular(long long a, long long expoente, long long mod)
 {
     // Caso base
     if (expoente == 1)
@@ -24,8 +24,8 @@ long long potenciaModular(unsigned int a, unsigned int expoente, unsigned int mo
     }
 }
 
-// long long potenciaModular(unsigned int a,
-//                           unsigned int expoente, unsigned int mod)
+// long long potenciaModular(long long a,
+//                           long long expoente, long long mod)
 // {
 //     if (a == 0)
 //         return 0;
