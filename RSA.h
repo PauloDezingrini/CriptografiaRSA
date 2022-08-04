@@ -9,24 +9,24 @@ using namespace std;
 class RSA
 {
 private:
-    long long chavePrivada;
-    long long chavePublica_n;
-    long long chavePublica_e;
+    unsigned long long chavePrivada;
+    unsigned long long chavePublica_n;
+    unsigned long long chavePublica_e;
 
     int definirTamanhoDoBloco();
 
 public:
-    long long primoP;
-    long long primoQ;
+    unsigned long long primoP;
+    unsigned long long primoQ;
     RSA();
 
-    long long getChavePrivada();
-    long long getChavePublica_n();
-    long long getChavePublica_e();
+    unsigned long long getChavePrivada();
+    unsigned long long getChavePublica_n();
+    unsigned long long getChavePublica_e();
 
     void gerarChaves();
-    vector<long long> criptografar(string entrada);
-    string descriptografar(vector<long long> mensagemCriptografada);
+    vector<unsigned long long> criptografar(string entrada);
+    string descriptografar(vector<unsigned long long> mensagemCriptografada);
 };
 
 #endif

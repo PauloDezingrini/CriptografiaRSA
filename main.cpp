@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     cout << "Primos q : " << rsa.primoQ << endl;
 
     string mensagem = argv[1];
-    vector<long long> mensagemCriptografada;
+    vector<unsigned long long> mensagemCriptografada;
 
     mensagemCriptografada = rsa.criptografar(mensagem);
 

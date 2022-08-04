@@ -17,17 +17,17 @@ RSA::RSA()
     this->chavePublica_e = 0;
 }
 
-long long RSA::getChavePrivada()
+unsigned long long RSA::getChavePrivada()
 {
     return this->chavePrivada;
 }
 
-long long RSA::getChavePublica_n()
+unsigned long long RSA::getChavePublica_n()
 {
     return this->chavePublica_n;
 }
 
-long long RSA::getChavePublica_e()
+unsigned long long RSA::getChavePublica_e()
 {
     return this->chavePublica_e;
 }
@@ -39,7 +39,7 @@ int RSA::definirTamanhoDoBloco()
         return 0;
     else
     {
-        long long maiorCombinacao = 25;
+        unsigned long long maiorCombinacao = 25;
         int i;
         for (i = 2; maiorCombinacao < this->chavePublica_n; i += 2)
             maiorCombinacao += 25 * pow(10, i);
@@ -50,20 +50,20 @@ int RSA::definirTamanhoDoBloco()
 
 void RSA::gerarChaves()
 {
-    // long long p = 541;
-    // long long q = 547;
+    unsigned long long p = 541;
+    unsigned long long q = 547;
 
-    long long p = gerarPseudoPrimo();
-    long long q = gerarPseudoPrimo();
-    long long s, t, x;
+    // unsigned long long p = gerarPseudoPrimo();
+    // unsigned long long q = gerarPseudoPrimo();
+    unsigned long long s, t, x;
     this->primoP = p;
     this->primoQ = q;
 
     this->chavePublica_n = p * q;
 
-    long long fi = (p - 1) * (q - 1);
+    unsigned long long fi = (p - 1) * (q - 1);
     // cout << "fi " << fi << endl;
-    long long e;
+    unsigned long long e;
     do
     {
         e = gerarPseudoPrimo(); // Talvez garantir que ele seja pseudoPrimo
@@ -78,7 +78,7 @@ void RSA::gerarChaves()
         this->chavePrivada = s;
 }
 
-vector<long long> RSA::criptografar(string entrada)
+vector<unsigned long long> RSA::criptografar(string entrada)
 {
     int tamanhoDoBloco = definirTamanhoDoBloco();
 
@@ -90,10 +90,10 @@ vector<long long> RSA::criptografar(string entrada)
         Vector será utilizado para armazenar a mensagem criptografada,
         onde cada posição representará um bloco da mensagem
     */
-    vector<long long> mensagemCriptografada;
+    vector<unsigned long long> mensagemCriptografada;
 
     // Variáveis auxiliares
-    long long sequenciaCriptografada;
+    unsigned long long sequenciaCriptografada;
 
     for (int i = 0; i < mensagemCodificada.length();)
     {
@@ -131,12 +131,12 @@ vector<long long> RSA::criptografar(string entrada)
     return mensagemCriptografada;
 }
 
-string RSA::descriptografar(vector<long long> mensagemCriptografada)
+string RSA::descriptografar(vector<unsigned long long> mensagemCriptografada)
 {
     string mensagemDescriptografada = "";
     string aux;
-    long long sequenciaCriptografada;
-    long long sequenciaDescriptografada;
+    unsigned long long sequenciaCriptografada;
+    unsigned long long sequenciaDescriptografada;
 
     int tamanhoDoBloco = definirTamanhoDoBloco();
     cout << "tamanho bloco " << tamanhoDoBloco << endl;

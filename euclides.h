@@ -1,7 +1,7 @@
 #ifndef EUCLIDES_H
 #define EUCLIDES_H
 
-long long euclides(long long a, long long b)
+unsigned long long euclides(unsigned long long a, unsigned long long b)
 {
     if (b == 0)
         return a;
@@ -9,21 +9,21 @@ long long euclides(long long a, long long b)
         return euclides(b, a % b);
 }
 
-long long euclidesEstendidoxxx(long long a, long long b,
-                               long long &s, long long &t)
+unsigned long long euclidesEstendidoxxx(unsigned long long a, unsigned long long b,
+                                        unsigned long long &s, unsigned long long &t)
 {
-    long long r = a;
-    long long r1 = b;
-    long long s1 = 0;
-    long long t1 = 1;
+    unsigned long long r = a;
+    unsigned long long r1 = b;
+    unsigned long long s1 = 0;
+    unsigned long long t1 = 1;
     s = 1;
     t = 0;
 
-    long long rs, ss, ts, q;
+    unsigned long long rs, ss, ts, q;
 
     while (r1 != 0)
     {
-        q = (long long)r / r1;
+        q = (unsigned long long)r / r1;
         rs = r;
         ss = s;
         ts = t;
@@ -39,17 +39,17 @@ long long euclidesEstendidoxxx(long long a, long long b,
     // cout << "bbbbb " << b << endl;
     return r;
 }
-long long euclidesEstendido(long long n1, long long n2, long long &s, long long &t)
+unsigned long long euclidesEstendido(unsigned long long n1, unsigned long long n2, unsigned long long &s, unsigned long long &t)
 {
     s = 1;
     t = 0;
 
-    long long newS = 0, newT = 1;
-    long long aux, q;
+    unsigned long long newS = 0, newT = 1;
+    unsigned long long aux, q;
 
     do
     {
-        q = (long long)n1 / n2;
+        q = (unsigned long long)n1 / n2;
 
         aux = s - (newS * q);
         s = newS;
