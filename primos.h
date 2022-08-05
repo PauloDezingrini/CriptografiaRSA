@@ -39,11 +39,6 @@ unsigned long long gerarPossivelPrimoIntervalo(unsigned long long vMax)
         num = generator();
     } while (num > vMax);
 
-    // TROCAR AQUI
-    // return 7 ;
-
-    //cout << "primo " << num << endl;
-
     return num;
 }
 
@@ -77,6 +72,9 @@ bool verificaPrimo(unsigned long long possivelPrimo) // Implementação do teste
     return true;
 }
 
+/*
+    Roda até que encontre um número pseudo primo
+*/
 unsigned long long gerarPseudoPrimo()
 {
     bool verifica = false;
