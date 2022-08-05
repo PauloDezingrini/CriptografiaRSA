@@ -263,3 +263,11 @@ void RSA::quebrarCriptografia(long long ch)
             primo += 2;
         }
     }
+}
+
+void RSA::operator=(RSA rsa)
+{
+    this->chavePrivada = rsa.getChavePrivada();
+    this->chavePublica_e = rsa.getChavePublica_e();
+    this->chavePublica_n = rsa.getChavePublica_n();
+}

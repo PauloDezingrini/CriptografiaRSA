@@ -34,6 +34,8 @@ public:
     vector<long long> gerarAssinatura(string entrada);
 
     void quebrarCriptografia(long long ch);
+
+    void operator=(RSA rsa);
 };
 
 #endif
