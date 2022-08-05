@@ -13,14 +13,13 @@ private:
     long long chavePublica_n;
     long long chavePublica_e;
 
-    int definirTamanhoDoBloco();
-
 public:
     long long primoP;
     long long primoQ;
     RSA();
     RSA(long long _chavePublica_n, long long _chavePublica_e);
     RSA(long long _chavePublica_n, long long _chavePublica_e, long long _chavePrivada);
+    int definirTamanhoDoBloco();
 
     long long getChavePrivada();
     long long getChavePublica_n();
