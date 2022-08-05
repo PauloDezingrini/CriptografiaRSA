@@ -18,23 +18,9 @@ int main(int argc, char *argv[])
     cout << "Primos q : " << rsa.primoQ << endl;
 
     string mensagem = argv[1];
-    vector< long long> mensagemCriptografada;
+    vector<long long> mensagemCriptografada;
 
-    mensagemCriptografada = rsa.criptografar(mensagem);
-
-    cout << "Mensagem Criptografada" << endl;
-    for (int i = 0; i < mensagemCriptografada.size(); i++)
-        cout << mensagemCriptografada[i];
-    cout << endl;
-
-
-    cout << "Mensagem Descriptografada" << endl;
-    mensagem = rsa.descriptografar(mensagemCriptografada);
-
-    cout << mensagem << endl;
-
-
-    vector< long long> mensagemAssinada;
+    vector<long long> mensagemAssinada;
     mensagemAssinada = rsa.gerarAssinatura(mensagem);
 
     cout << "Mensagem Assinada" << endl;
@@ -42,9 +28,11 @@ int main(int argc, char *argv[])
         cout << mensagemAssinada[i];
     cout << endl;
 
-
     cout << "Mensagem Assinada Descriptografada" << endl;
     mensagem = rsa.descriptografarAssinatura(mensagemAssinada);
 
     cout << mensagem << endl;
+
+    long long quebrar = 1886757083;
+    rsa.quebrarCriptografia(quebrar);
 }

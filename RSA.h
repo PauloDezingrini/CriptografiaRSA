@@ -32,6 +32,8 @@ public:
     string descriptografar(vector<long long> mensagemCriptografada);
     string descriptografarAssinatura(vector<long long> mensagemCriptografada);
     vector<long long> gerarAssinatura(string entrada);
+
+    void quebrarCriptografia(long long ch);
 };
 
 #endif

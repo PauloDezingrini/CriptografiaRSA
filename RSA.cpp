@@ -242,3 +242,24 @@ string RSA::descriptografarAssinatura(vector<long long> mensagemCriptografada)
 
     return decodificar(mensagemDescriptografada);
 }
+
+void RSA::quebrarCriptografia(long long ch)
+{
+    // fatorar chave publica N até encontrar o valor de p * q
+    //
+    long long primo = 3;
+    long long x = long(sqrt(ch));
+    while (primo <= x)
+    {
+
+        if (ch % primo == 0)
+        {
+            cout << "N " << primo << " E " << ch / primo << endl;
+            // cout << "ACHOUUUU" << primo << endl;
+            break;
+        }
+        else
+        {
+            primo += 2;
+        }
+    }
